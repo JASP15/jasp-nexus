@@ -1,4 +1,5 @@
 """Local audited state, separate from CAO's database."""
+from __future__ import annotations
 from pathlib import Path
 import sqlite3
 from uuid import uuid4
