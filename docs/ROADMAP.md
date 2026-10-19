@@ -5,10 +5,10 @@
 - Registro SQLite de tareas y eventos, revisión lógica, límites de intentos.
 - CLI doctor, create, list, route, show, history, advance.
 - Tests unitarios y pipeline CI (resultado de ejecución por verificar).
-- Instrucciones para Windows/WSL2.
+- Instrucciones Windows/WSL2 y macOS con CI Linux/macOS.
 
 ## 1 — Primer piloto con CAO
-- Instalar CLIs y CAO en WSL2 con autenticación de cada proveedor.
+- Instalar CLIs y CAO en WSL2 y macOS, con autenticación independiente por host.
 - Verificar perfiles restrictivos, aislamiento y políticas antes de ejecutar.
 - Adaptador CAO real: salud, sesiones, terminales y ejecución autorizada.
 - 3 tareas descartables: visual, backend y revisión con rechazo.
@@ -18,6 +18,7 @@
 - Worktrees y control de merges.
 - Checkpoints y recuperación idempotente.
 - Handoff Claude/Codex con única autoridad y estado versionado.
+- Definir modelo multi-host seguro (Mac + WSL2), sin sincronizar SQLite mediante Git.
 
 ## 3 — Recursos modulares
 - Adaptador Command Code y OpenRouter.
