@@ -8,9 +8,14 @@ from urllib.request import urlopen
 
 from .core import KINDS, load_agents, route
 from .store import TaskStore, TRANSITIONS
+from .platform_support import current_host
 
 
 def doctor():
+    host, compatible = current_host()
+    print(f"host         {host}")
+    if not compatible:
+        print("CAO local    unsupported on native Windows; use Ubuntu in WSL2")
     for name, binary in {"claude": "claude", "codex": "codex", "kiro": "kiro-cli", "commandcode": "cmdc"}.items():
         print(f"{name:12} {'found' if shutil.which(binary) else 'missing'} ({binary})")
     try:
