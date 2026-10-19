@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+.env
+.env.*
+!.env.example
+.nexus/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+dist/
+build/
+node_modules/
