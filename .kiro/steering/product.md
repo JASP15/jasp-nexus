@@ -6,7 +6,7 @@ JASP Nexus es una herramienta personal para coordinar trabajo de desarrollo y ge
 
 El usuario aprobó la propuesta de `docs/revision-local-2026-10-23.md` con «sigamos tu propuesta». Se conserva el trabajo local y se recupera el contenido de foundation (`8683b6568ff026cb957866225115743b8b01d4f8`). La spec activa es `local-runtime-mvp`; `nexus-console` queda pospuesta.
 
-Posteriormente pidió reunir el historial y los cambios en una sola rama: se consolida todo en `main` mediante commits de conservación y merge local. Esta operación de Git no cierra T01 ni sustituye su revisión externa, que sigue pospuesta. No se publica en GitHub como efecto de la consolidación.
+Posteriormente pidió reunir el historial y los cambios en una sola rama: todo quedó consolidado en `main`, merge `e120277`, mediante commits de conservación y merge local. Esta operación de Git no sustituye la revisión externa de T01, que obtuvo APROBADO de Claude en ronda 2 tras corregir la documentación. El cierre se registra en `docs/revisiones/local-runtime-mvp-t01.md`. Los cambios no se han publicado en GitHub.
 
 Orden único: **conexión local real → agente acotado → ComfyUI → orquestación y consola**. T01 concilia documentación y recupera código existente; no implementa conexiones ni inicia agentes.
 

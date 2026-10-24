@@ -4,18 +4,20 @@
 
 ## Trabajo detallado
 
-**Consolidación Git autorizada después de la preparación:** el usuario pidió una sola rama local con todo fusionado. La operación permite respaldar, guardar cambios en commits de conservación, incorporar el historial foundation y continuar desde `main`; es una excepción a las restricciones Git de preparación de T01. No cambia sus casillas ni aprueba técnicamente la tarea. La revisión externa sigue pospuesta y T02 sigue pendiente.
+**Estado vigente:** la consolidación Git autorizada incorporó foundation y el trabajo local en `main`, merge `e120277e7930b77766f81201fa08cac6b79be1fd`. Los criterios siguientes evalúan ese estado y las correcciones documentales; la recuperación sin merge y HEAD inalterado es histórica. T01 obtuvo APROBADO de Claude en ronda 2, con comprobaciones de cierre satisfactorias; véase `docs/revisiones/local-runtime-mvp-t01.md`. T02 permanece pendiente.
 
-- [ ] **T01. Conciliación de foundation y compatibilidad** (R1.*, R4.1, R4.3)
-  - Conservar rama, HEAD, índice y cambios locales durante la preparación; recuperar únicamente archivos seguros ausentes del commit `8683b6568ff026cb957866225115743b8b01d4f8`: paquete, tests, catálogo JSON, pyproject, CI y documentos foundation.
-  - Copiar originales seguros antes de cambiarlos a `.build/reconcile-2026-10-23/originals/`; registrar hashes y procedencia en manifiesto. No copiar secretos.
+- [x] **T01. Conciliación de foundation y compatibilidad** (R1.*, R4.1, R4.3)
+  - Conservar `main` y comprobar que foundation `8683b6568ff026cb957866225115743b8b01d4f8` es ancestro del merge `e120277`; mantener el trabajo local incorporado. No repetir la recuperación ni cambiar de rama.
+  - Conservar los respaldos originales de recuperación y consolidación. Copiar los documentos seguros antes de corregirlos a `.build/review-t01-main-e120277/round2-originals/`; registrar hashes y procedencia en manifiesto. No copiar secretos.
   - Conciliar AGENTS, steering, README y gitignore; documentar deuda heredada y estado real de capacidades.
   - Crear esta spec y dejar `nexus-console` pospuesta. Adaptar sus T02/T04 y diseño para ampliar la CLI/SQLite existentes sin reemplazo.
-  - Registrar la procedencia sin afirmar que se incorporaron los commits foundation al historial.
-  - No implementar T02, corregir scripts de arranque/parada, instalar herramientas, iniciar proveedores ni hacer staging/commit antes de revisión aprobada.
+  - Registrar la procedencia y distinguir recuperación histórica, consolidación Git y cierre técnico tras aprobación externa. El merge de conservación no aprueba T01.
+  - Limitar las correcciones de revisión a documentación: no implementar T02, corregir scripts de arranque/parada, instalar herramientas ni iniciar proveedores. No hacer staging/commit de cierre antes del dictamen externo APROBADO.
   - Verificar desde raíz WSL/POSIX: `PYTHONPATH=src python3 -m unittest discover -s tests -v`; `PYTHONPATH=src python3 -m jasp_nexus.cli --help`; `git diff --check`.
-  - Verificar además: hashes de archivos foundation de código/config/tests/CI idénticos al commit fuente; originales respaldados íntegros; smoke de create → route → show/history/list en base temporal (sin proveedores); rama y HEAD sin cambios durante la preparación.
-  - Aceptación: documentación coherente, 15 pruebas existentes y smoke aprobados; revisión cruzada registrada. Mantener esta casilla vacía hasta esa revisión.
+  - Verificar identidad byte a byte de estos 11 archivos con foundation: `.github/workflows/ci.yml`, `config/agents.example.json`, `pyproject.toml`, `src/jasp_nexus/__init__.py`, `src/jasp_nexus/cli.py`, `src/jasp_nexus/core.py`, `src/jasp_nexus/platform_support.py`, `src/jasp_nexus/store.py`, `tests/test_core.py`, `tests/test_platform_support.py` y `tests/test_store.py`.
+  - Verificar además: originales respaldados íntegros; smoke create → route → show/history/list en base temporal (sin proveedores); foundation ancestro de `main`; árbol limpio antes de corregir y, durante revisión, únicamente cambios documentales inventariados.
+  - Aceptación: documentación coherente, 11 archivos idénticos, 15 pruebas y smoke aprobados; dictamen externo APROBADO con alcance registrado. Mantener esta casilla vacía hasta ese dictamen.
+  - Cierre tras aprobación: commit `T01: Foundation reconciliation and compatibility` con las correcciones documentales revisadas, esta casilla `[x]` y registro del dictamen/alcance; identificar `local-runtime-mvp` en el cuerpo. Verificar árbol limpio después del commit. `e120277` es el merge de conservación, no este cierre; no hacer push.
 
 - [ ] **T02. Conexión local real y evidencia medida** (R2.*, R3.*, R4.2–R4.4)
   - Añadir configuración JSON validada para LM Studio y ComfyUI, timeouts y límites finitos; comandos `providers/models/chat` con argparse y librería estándar.

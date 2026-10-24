@@ -4,14 +4,14 @@
 
 ## R1. Conciliación y compatibilidad (T01)
 
-**Aclaración posterior del usuario:** las restricciones de preparación de R1.1 describen la recuperación inicial. Para resolver la separación de ramas, el usuario autorizó una consolidación local con respaldo, commits de conservación, merge del historial foundation y `main` como única rama local. Esta excepción de Git no aprueba T01 ni modifica el requisito de revisión R4.3.
+**Estado vigente tras la consolidación autorizada:** `main` contiene foundation y el trabajo local en el merge `e120277e7930b77766f81201fa08cac6b79be1fd`. Las restricciones anteriores de recuperación sin merge y HEAD inalterado son históricas. La consolidación no aprueba T01 ni modifica la revisión exigida en R4.3.
 
-- **R1.1** Recuperar los archivos seguros ausentes de foundation `8683b6568ff026cb957866225115743b8b01d4f8`, manteniendo los cambios locales. Durante la preparación conservar rama, HEAD e índice; no hacer merge ni push. Solo tras revisión aprobada se permite marcar T01 y preparar su commit conforme a AGENTS, sin incorporar por ello el historial foundation.
-- **R1.2** Respaldar cada archivo local que se modifique y registrar procedencia, hashes y resultado en `.build/reconcile-2026-10-23/`. No leer ni copiar secretos.
+- **R1.1** Verificar que foundation `8683b6568ff026cb957866225115743b8b01d4f8` es ancestro de `main`, que se conservó el trabajo local y que los 11 archivos enumerados en T01 son idénticos byte a byte al commit fuente. El árbol debe estar limpio antes de las correcciones y después del commit de cierre; durante la revisión solo contendrá las correcciones documentales inventariadas. No hacer push ni cambiar de rama.
+- **R1.2** Respaldar cada archivo local antes de modificarlo y registrar procedencia y hashes. La recuperación inicial consta en `.build/reconcile-2026-10-23/`, la consolidación en `.build/git-consolidation-2026-10-23/` y las correcciones de revisión en `.build/review-t01-main-e120277/round2-originals/`. No leer ni copiar secretos.
 - **R1.3** Mantener Python 3.11+, argparse, setuptools, librería estándar, unittest, entrypoint `cli:main`, comandos existentes, `--agents`, `--db` y `.nexus/state.sqlite3`.
 - **R1.4** Conservar `TaskStore`, tablas `tasks/events`, IDs, estados, historial y límite de intentos. No abrir ni migrar bases de usuario durante la conciliación.
 - **R1.5** Alinear AGENTS, steering, README y specs; posponer `nexus-console` y sustituir sus instrucciones de recrear CLI/SQLite por extensiones compatibles.
-- **R1.6** Distinguir capacidades recuperadas, planes y evidencia real. Recuperar archivos no incorpora los 13 commits foundation al historial.
+- **R1.6** Distinguir capacidades recuperadas, planes y evidencia real. Los 13 commits foundation están incorporados mediante el merge de conservación `e120277`; este no constituye aprobación técnica ni cierre de T01. La recuperación selectiva sin incorporar historial describe únicamente la etapa anterior.
 
 ## R2. Primera conexión local real (T02, pendiente)
 
@@ -36,6 +36,7 @@
 - **R4.1** La base recuperada debe superar sus 15 pruebas y un recorrido CLI con base temporal. No confundir esos resultados con funcionamiento de servicios locales.
 - **R4.2** T02 debe tener pruebas deterministas de cliente HTTP, errores, límites y persistencia, sin exigir modelos reales. Validar aparte la petición real cuando LM Studio esté disponible; si no lo está, registrar el bloqueo y no declarar completada la aceptación real.
 - **R4.3** Una tarea de construcción solo se marca y permite commit después de revisión por un proveedor distinto del implementador. Si no está disponible, queda pendiente; no aprobarse a sí mismo ni sustituirlo tácitamente por revisión humana.
+- **R4.3a** La excepción de conservación Git ya ejecutada no cierra T01. Tras dictamen externo **APROBADO**, su commit de cierre incluirá las correcciones documentales revisadas, la casilla `[x]` y el registro del dictamen y alcance, con las verificaciones en verde. No se reutiliza `e120277` como commit de tarea.
 - **R4.4** No implementar hitos posteriores antes de cerrar su predecesor y detallar/validar su diseño. Conservar español, seguridad de AGENTS y comandos de verificación aplicables.
 
 ## Hitos posteriores (aún sin criterios ejecutables)

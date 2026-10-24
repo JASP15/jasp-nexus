@@ -24,7 +24,7 @@ docs/                             Informe, conciliación, guías foundation y gu
 .build/reconcile-2026-10-23/       Copias de originales y manifiesto local, ignorados por Git
 ```
 
-Los archivos foundation proceden del commit `8683b6568ff026cb957866225115743b8b01d4f8`. Tras la recuperación inicial, el usuario pidió consolidar también su historial: los commits se incorporan mediante merge y se conserva `main` como única rama local de trabajo. La revisión técnica de T01 sigue pendiente.
+Los archivos foundation proceden del commit `8683b6568ff026cb957866225115743b8b01d4f8`. Su historial ya está incorporado en `main` mediante el merge `e120277`, junto con el trabajo local. `main` es la única rama local de trabajo. T01 obtuvo APROBADO de Claude en ronda 2; los dictámenes, alcance y hashes aprobados se conservan en `docs/revisiones/`.
 
 ## Datos y compatibilidad
 

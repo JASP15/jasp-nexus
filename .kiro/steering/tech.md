@@ -11,6 +11,7 @@ Dirección conciliada con autorización del usuario del 23 de octubre de 2026. N
 - Datos actuales: `.nexus/state.sqlite3`, configurable mediante `--db`. Preservar `tasks`, `events`, estados y APIs de `TaskStore`.
 - Pruebas existentes: **unittest**, 15 casos recuperados. CI Linux/macOS y Python 3.11/3.12. No requiere CAO, credenciales ni modelos para pasar.
 - T01 conserva la base exacta: no migra a Typer, hatchling, pytest ni otra ruta de SQLite. Deuda heredada de tipado, mensajes y formato documentada; no declararla resuelta por la recuperación.
+- `doctor` conserva `urlopen` con proxies de entorno y redirecciones por defecto. Es deuda heredada, sin corregir en T01; el transporte nuevo de T02 debe desactivarlos explícitamente y comprobarlo con pruebas.
 
 ## Conexiones locales previstas (T02, aún sin implementar)
 

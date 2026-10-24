@@ -1,6 +1,6 @@
 # Windows y WSL2: estado del trabajo local
 
-**Actualizado el 23 de octubre de 2026.** La spec activa es [local-runtime-mvp](../.kiro/specs/local-runtime-mvp/tasks.md). La guía anterior mezclaba instalación de todos los proveedores con scripts locales aún sin commit. La copia íntegra anterior está en `.build/reconcile-2026-10-23/originals/docs/setup-windows.md`.
+**Actualizado el 23 de octubre de 2026.** La spec activa es [local-runtime-mvp](../.kiro/specs/local-runtime-mvp/tasks.md). Foundation y scripts locales están guardados en `main`, base consolidada `e120277`; T01 obtuvo [APROBADO externo en ronda 2](revisiones/local-runtime-mvp-t01.md). La copia de la guía anterior a la conciliación está en `.build/reconcile-2026-10-23/originals/docs/setup-windows.md`.
 
 ## Probar el checkout actual
 
@@ -25,4 +25,4 @@ La instalación/integración CAO se retomará tras el flujo local y validación 
 
 ## Distribución y otros equipos
 
-Un clon de `main` no contiene automáticamente esta conciliación sin commit ni los scripts locales. No cambiar de rama siguiendo una guía histórica. Las guías foundation [WSL2](WINDOWS_WSL2.md) y [macOS](MACOS.md) se conservaron como referencia de su etapa; no sustituyen este estado ni la spec activa.
+La `main` local contiene la conciliación y los scripts conservados desde `e120277`, más el cierre documental revisado de T01. Los cambios no se han publicado: un clon de GitHub solo recibirá lo que exista en el remoto. Continuar en `main`; no cambiar de rama siguiendo una guía histórica. Las guías foundation [WSL2](WINDOWS_WSL2.md) y [macOS](MACOS.md) se conservaron como referencia de su etapa; no sustituyen este estado ni la spec activa.

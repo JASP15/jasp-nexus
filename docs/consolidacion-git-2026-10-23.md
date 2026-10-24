@@ -1,6 +1,6 @@
 # Una sola rama local para continuar
 
-El usuario aclaró que el resultado esperado era una sola rama con los cambios fusionados. Esta operación consolida Git; no sustituye la revisión técnica de T01, que sigue pospuesta por petición del usuario.
+El usuario aclaró que el resultado esperado era una sola rama con los cambios fusionados. La consolidación ya terminó en `main`, merge `e120277e7930b77766f81201fa08cac6b79be1fd`, con padres `9e661af670baa2e56884cc3990ab4469d92f2eca` (conservación local) y `8683b6568ff026cb957866225115743b8b01d4f8` (foundation). No sustituye la revisión técnica de T01: Claude solicitó correcciones documentales en ronda 1 y emitió APROBADO en ronda 2.
 
 ## Estado de partida
 
@@ -22,13 +22,13 @@ No se incluyeron credenciales ni archivos de entorno. `.build/` sigue ignorado p
 
 Se conservan los perfiles, scripts, política YAML y diseño de consola porque contienen trabajo único, aunque su integración no esté validada. El archivo vacío de nombre accidental `%sn  ; done; echo ---` se conserva en el respaldo ignorado y se retira de la raíz; no forma parte del proyecto.
 
-## Consolidación
+## Consolidación realizada
 
-1. Guardar los archivos útiles en un commit de conservación en la rama actual. T01 sigue sin marcar.
-2. Hacer un merge real de foundation para conservar sus 13 commits en el historial.
-3. Resolver los documentos compartidos preservando las versiones conciliadas. Los archivos de código, pruebas, catálogo, empaquetado y CI coinciden con foundation.
-4. Adelantar `main` al resultado, continuar en ella y retirar `feat/estructura-inicial` solo después de verificar que su historial está incorporado.
-5. Comprobar que foundation es ancestro de `main`, que los archivos útiles siguen presentes y que el árbol de trabajo está limpio.
+1. Se guardaron los archivos útiles en el commit de conservación `9e661af`. T01 siguió sin marcar.
+2. Se hizo el merge real de foundation para conservar sus 13 commits en el historial.
+3. Se preservaron los documentos conciliados y los archivos de código, pruebas, catálogo, empaquetado y CI idénticos a foundation.
+4. Se adelantó `main` al resultado y se retiró `feat/estructura-inicial` tras verificar que su historial quedó incorporado.
+5. Se comprobó foundation como ancestro de `main`, la conservación de archivos útiles y el árbol limpio antes de las correcciones de revisión.
 
 La instrucción del usuario autoriza estos commits y cambios de referencias como excepción a las restricciones de preparación anteriores. No autoriza dar por revisada T01, iniciar T02 ni publicar cambios.
 
@@ -38,4 +38,4 @@ Trabajar en `main`. El commit de merge contiene el historial foundation y el tra
 
 Las referencias `origin/main` y `origin/feat/foundation-cao-mvp` pueden seguir apareciendo en GitKraken dentro de los remotos. Representan el estado de GitHub conocido por este clon; no son ramas locales pendientes de combinar. Esta consolidación no hace push, no borra ramas de GitHub y no cierra su PR.
 
-La revisión externa de T01 sigue pendiente. Los commits de conservación permiten retomar esa revisión con el trabajo guardado; no son evidencia de aprobación.
+La revisión externa de T01 terminó con APROBADO en ronda 2; véase su [registro](revisiones/local-runtime-mvp-t01.md). El commit de cierre deriva de `e120277` y contiene las correcciones documentales revisadas, la casilla y los dictámenes. Los commits de conservación no son evidencia de aprobación; T02 permanece pendiente.

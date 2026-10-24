@@ -2,9 +2,11 @@
 
 ## Decisiones de conciliación (T01)
 
-**Actualización de Git por petición posterior del usuario:** después de la recuperación descrita abajo se consolida el historial foundation y el trabajo local en `main`. Se permiten los commits de conservación y el merge necesarios para esa operación; T01 mantiene su revisión externa pendiente. El procedimiento y respaldo constan en `docs/consolidacion-git-2026-10-23.md`.
+**Estado vigente tras la consolidación autorizada:** foundation y trabajo local ya están incorporados en `main`, merge `e120277e7930b77766f81201fa08cac6b79be1fd`. T01 obtuvo APROBADO de Claude en ronda 2 tras las correcciones documentales de ronda 1. El procedimiento y respaldo constan en `docs/consolidacion-git-2026-10-23.md`; el cierre se registra en `docs/revisiones/local-runtime-mvp-t01.md`.
 
-Foundation `8683b6568ff026cb957866225115743b8b01d4f8` aporta código que se recupera selectivamente en el checkout actual, sin cambiar HEAD, índice o rama durante la preparación; el commit de T01 solo se permite después de revisión aprobada. Los archivos locales son otra línea de trabajo y se conservan. Los archivos seguros que se cambien tienen copia en `.build/reconcile-2026-10-23/originals/`, inventariada en `manifest.json`.
+La recuperación selectiva inicial desde foundation `8683b6568ff026cb957866225115743b8b01d4f8`, sin cambiar HEAD, índice ni rama, es una etapa histórica. La revisión actual verifica foundation como ancestro de `main` y los 11 archivos de T01 idénticos al origen, junto con compatibilidad y respaldo del trabajo local. Los originales de recuperación están en `.build/reconcile-2026-10-23/originals/`; las correcciones actuales tienen copia y manifiesto en `.build/review-t01-main-e120277/round2-originals/`.
+
+Solo tras dictamen externo APROBADO y verificaciones satisfactorias se hará el commit de cierre con las correcciones documentales revisadas, la casilla y el registro del dictamen/alcance. El árbol estaba limpio antes de estas correcciones y debe quedar limpio tras ese commit. El merge de conservación no cierra T01.
 
 La base se mantiene intacta: setuptools, argparse, librería estándar, unittest, `nexus = "jasp_nexus.cli:main"`, `TaskStore` y `.nexus/state.sqlite3`. El JSON de agentes alimenta routing simulado; `routing.yaml` se conserva como política de perfiles CAO y no sustituye al JSON. No se introducen migraciones de CLI ni de datos.
 
@@ -15,6 +17,8 @@ La base se mantiene intacta: setuptools, argparse, librería estándar, unittest
 La CLI crea tareas, propone roles y registra transiciones; no autentica actores ni ejecuta agentes. El coordinador lógico todavía se restringe a Claude/Codex. Esto no bloquea el futuro chat directo: T02 no usa `route` para hablar con LM Studio.
 
 Los mensajes ingleses y falta de tipado/formato de la base son deuda heredada visible, conservada para que T01 sea una recuperación verificable. Código nuevo o modificado debe seguir AGENTS; no introducir un refactor general en esta tarea.
+
+`doctor` usa `urlopen` con proxies de entorno y redirecciones por defecto. Se conserva como deuda heredada; T02 debe implementar y probar transporte sin proxies implícitos ni redirecciones, sin copiar ese patrón.
 
 ## Ampliación prevista T02 (no implementada por T01)
 

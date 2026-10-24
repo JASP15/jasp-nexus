@@ -2,13 +2,13 @@
 
 Herramienta personal y modular para coordinar desarrollo y generación visual con servicios locales y agentes. El primer objetivo es un flujo local que no dependa de Claude ni de CAO.
 
-**Estado actual: foundation y trabajo local consolidados en `main`; T01 pendiente de revisión.** La CLI administra tareas y simula asignaciones; todavía no ejecuta agentes, chat local ni workflows ComfyUI. La consola web está pospuesta.
+**Estado actual: foundation y trabajo local consolidados en `main`, base `e120277`; T01 aprobada por Claude en ronda 2.** La CLI administra tareas y simula asignaciones; todavía no ejecuta agentes, chat local ni workflows ComfyUI. La consola web está pospuesta.
 
 ## Dirección acordada
 
 El 23 de octubre de 2026 se aprobó seguir la [propuesta de revisión local](docs/revision-local-2026-10-23.md): **conexión local real → agente acotado → ComfyUI → orquestación y consola**.
 
-La spec activa es [local-runtime-mvp](.kiro/specs/local-runtime-mvp/tasks.md). Se trabaja una tarea a la vez; la primera concilia las fuentes de verdad y recupera código existente. El cierre exige revisión de un proveedor distinto del implementador.
+La spec activa es [local-runtime-mvp](.kiro/specs/local-runtime-mvp/tasks.md). Se trabaja una tarea a la vez; T01 concilió las fuentes de verdad y recuperó el código existente, ya consolidado. Su cierre cuenta con [revisión de Claude](docs/revisiones/local-runtime-mvp-t01.md), proveedor distinto del implementador Codex. T02 permanece pendiente.
 
 ## Qué hay disponible
 
@@ -47,7 +47,7 @@ La instalación editable del paquete es opcional para disponer del comando `nexu
 
 ## Procedencia y archivos locales
 
-La base procede de `8683b6568ff026cb957866225115743b8b01d4f8`, rama `feat/foundation-cao-mvp`. Primero se recuperaron sus archivos y después, por petición expresa del usuario, se fusionaron sus 13 commits con el trabajo local. **La única rama local de trabajo es `main`** y los cambios están guardados en Git. La revisión técnica de T01 sigue pendiente; los commits de conservación y fusión no equivalen a su aprobación.
+La base procede de `8683b6568ff026cb957866225115743b8b01d4f8`, rama `feat/foundation-cao-mvp`. Primero se recuperaron sus archivos y después, por petición expresa del usuario, se fusionaron sus 13 commits con el trabajo local en `e120277e7930b77766f81201fa08cac6b79be1fd`. **La única rama local de trabajo es `main`**. El commit de cierre de T01 registra las correcciones documentales revisadas y el APROBADO externo de ronda 2; los commits de conservación y fusión no equivalen a esa aprobación. Los cambios siguen locales, sin publicar en GitHub.
 
 Consulta [procedencia, compatibilidad y verificación](docs/conciliacion-local-2026-10-23.md). Los originales seguros y manifiesto están en `.build/reconcile-2026-10-23/`, ignorado por Git.
 
