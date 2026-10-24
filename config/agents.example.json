@@ -1,0 +1,8 @@
+{
+  "agents": [
+    {"id": "claude", "provider": "claude_code", "enabled": true, "roles": ["coordinator", "worker", "reviewer"], "specialties": ["visual", "general"], "max_complexity": 3, "review_quality": 3, "cost_rank": 4},
+    {"id": "codex", "provider": "codex", "enabled": true, "roles": ["coordinator", "worker", "reviewer"], "specialties": ["backend", "integration", "general"], "max_complexity": 3, "review_quality": 3, "cost_rank": 3},
+    {"id": "kiro", "provider": "kiro_cli", "enabled": true, "roles": ["worker"], "specialties": ["backend", "general"], "max_complexity": 2, "review_quality": 1, "cost_rank": 1},
+    {"id": "commandcode", "provider": "commandcode", "enabled": true, "roles": ["worker"], "specialties": ["visual", "general"], "max_complexity": 1, "review_quality": 1, "cost_rank": 1}
+  ]
+}

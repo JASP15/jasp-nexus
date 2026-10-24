@@ -1,0 +1,47 @@
+# Política de asignación de JASP Nexus.
+# El supervisor lee este archivo al iniciar y decide a qué trabajador delegar.
+# Cambia el orden de `prefer` para cambiar prioridades; no hace falta reinstalar perfiles.
+
+providers:
+  claude_code:
+    strengths: [arquitectura, refactor-grande, revision, depuracion-compleja]
+    # Cuota relativa: alto = úsalo libremente, bajo = resérvalo para lo que solo él hace bien.
+    quota: medio
+  codex:
+    strengths: [implementacion-acotada, tests, scripts, migraciones]
+    quota: alto
+  kiro_cli:
+    strengths: [requisitos, specs, plan-de-tareas, documentacion]
+    quota: medio
+
+# Tipo de tarea -> trabajadores en orden de preferencia (nombres de perfil CAO).
+# Si el primero no está disponible o se quedó sin cuota, se usa el siguiente.
+routes:
+  spec:          { prefer: [nexus_spec_kiro, nexus_dev_claude] }
+  implementacion: { prefer: [nexus_dev_codex, nexus_dev_claude] }
+  refactor:      { prefer: [nexus_dev_claude, nexus_dev_codex] }
+  tests:         { prefer: [nexus_dev_codex, nexus_dev_claude] }
+  depuracion:    { prefer: [nexus_dev_claude, nexus_dev_codex] }
+  documentacion: { prefer: [nexus_spec_kiro, nexus_dev_codex] }
+
+# Revisión cruzada: quien revisa nunca es el mismo proveedor que escribió el código.
+review:
+  cross_provider: true
+  reviewers:
+    codex: nexus_review_claude
+    claude_code: nexus_review_codex
+    kiro_cli: nexus_review_claude
+  max_rounds: 3
+
+# Minutos que un proveedor queda en enfriamiento tras detectar una señal de cuota.
+cooldown_minutes: 60
+
+# Señales en la salida de un trabajador que indican que se quedó sin cuota.
+# Al detectarlas, el supervisor deja de usar ese proveedor durante el resto de la sesión.
+quota_signals:
+  - "rate limit"
+  - "usage limit"
+  - "limit reached"
+  - "quota"
+  - "429"
+  - "try again later"

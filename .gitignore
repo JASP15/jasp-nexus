@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+.env
+.env.*
+!.env.example
+.nexus/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+dist/
+build/
+node_modules/
+
+# Conciliacion local y futuros artefactos de consola
+.build/
+.ruff_cache/
+.mypy_cache/
+coverage/
+htmlcov/
+.coverage
+src/jasp_nexus/static/
+web/dist/
