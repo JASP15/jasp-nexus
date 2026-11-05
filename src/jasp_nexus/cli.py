@@ -7,6 +7,7 @@ from urllib.error import URLError
 from urllib.request import urlopen
 
 from .core import KINDS, load_agents, route
+from .local_cli import LOCAL_COMMANDS, add_local_commands, run_local_command
 from .store import TaskStore, TRANSITIONS
 from .platform_support import current_host
 
@@ -30,6 +31,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="nexus")
     parser.add_argument("--db", default=".nexus/state.sqlite3")
     parser.add_argument("--agents", default="config/agents.example.json")
+    parser.add_argument("--local-config", default=None, help="JSON de servicios locales")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("doctor", help="Read-only checks")
     create = commands.add_parser("create", help="Create a task")
@@ -46,10 +48,13 @@ def main(argv=None):
     advance.add_argument("--to", required=True, choices=sorted(TRANSITIONS))
     advance.add_argument("--actor", required=True)
     advance.add_argument("--note", default="")
+    add_local_commands(commands)
     args = parser.parse_args(argv)
     if args.command == "doctor":
         doctor()
         return 0
+    if args.command in LOCAL_COMMANDS:
+        return run_local_command(args)
     try:
         store = TaskStore(args.db)
         if args.command == "create":

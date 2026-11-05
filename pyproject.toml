@@ -14,3 +14,23 @@ nexus = "jasp_nexus.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+# T02: ruff applies to new or modified files only; inherited foundation code is
+# excluded until a dedicated, reviewed normalization task. cli.py only gained a
+# small dispatch hook to local_cli.py and stays excluded as inherited code.
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+    "src/jasp_nexus/cli.py",
+    "src/jasp_nexus/core.py",
+    "src/jasp_nexus/platform_support.py",
+    "src/jasp_nexus/store.py",
+    "src/jasp_nexus/__init__.py",
+    "tests/test_core.py",
+    "tests/test_platform_support.py",
+    "tests/test_store.py",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "ANN"]
