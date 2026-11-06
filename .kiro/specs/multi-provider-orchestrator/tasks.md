@@ -34,6 +34,7 @@ La línea de ruff se exige desde que T02 deje `uv` y ruff instalados en WSL. Un 
 - [ ] **T02. Entorno de desarrollo WSL** (R9.2, R9.3) — Claude escribe la guía y los cambios de `pyproject.toml`/CI; el usuario ejecuta instalaciones y logins en WSL; revisa: Codex
   - `docs/setup-wsl.md` (sustituye a `docs/setup-windows.md` y `docs/WINDOWS_WSL2.md`): Python 3.12, `uv`, `uv tool install ruff`, Node LTS, `claude` (`claude auth login`), `codex login`, Kiro CLI y su login (navegador o `KIRO_API_KEY`), con los comandos de instalación oficiales de cada herramienta. Recomendar clonar en el sistema de archivos de WSL (S12).
   - `pyproject.toml`: `[project.optional-dependencies] dev = ["ruff==<versión fijada>"]`. `.github/workflows/ci.yml`: job `lint` con ruff sobre los archivos no excluidos, sin tocar el job existente.
+  - Ajustes derivados (precisión de T02): `[tool.ruff.format] exclude = ["*.md"]`, porque ruff 0.17 también formatea bloques de código en Markdown y los de la documentación son ilustrativos; `uv.lock` en `.gitignore`, porque `uv run` lo genera y Nexus no tiene dependencias de ejecución.
   - Ningún agente instala ni inicia sesión por su cuenta: el usuario ejecuta los pasos y comparte la salida que decida.
   - Verificar: `nexus doctor` muestra los tres binarios; `claude auth status`, `codex login status` y el equivalente de Kiro reportan sesión iniciada; verificación base completa, incluida ruff.
   - Aceptación: `docs/entorno-2026-11.md` registra las versiones reales observadas, sin tokens ni rutas de credenciales.

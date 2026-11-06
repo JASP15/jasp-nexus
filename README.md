@@ -46,7 +46,7 @@ PYTHONPATH=src python3 -m jasp_nexus.cli --db .build/demo/state.sqlite3 list
 PYTHONPATH=src python3 -m jasp_nexus.cli --db .build/demo/state.sqlite3 route ID_DE_TAREA
 ```
 
-La instalación editable (`pip install -e .`) es opcional y da el comando `nexus`. La guía de entorno WSL con `uv`, ruff, Node y las tres CLIs llegará con F0/T02 (`docs/setup-wsl.md`).
+La instalación editable (`pip install -e .`) es opcional y da el comando `nexus`. Para preparar el entorno WSL con `uv`, ruff, Node y las tres CLIs, sigue la [guía de WSL](docs/setup-wsl.md); las versiones observadas se registran en [entorno-2026-11.md](docs/entorno-2026-11.md).
 
 ## Guías
 

@@ -9,15 +9,21 @@ description = "Local control plane for modular coding agents"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.optional-dependencies]
+# Development tools only (multi-provider-orchestrator T02). Nexus itself has
+# no runtime dependencies.
+dev = ["ruff==0.17.3"]
+
 [project.scripts]
 nexus = "jasp_nexus.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
-# T02: ruff applies to new or modified files only; inherited foundation code is
-# excluded until a dedicated, reviewed normalization task. cli.py only gained a
-# small dispatch hook to local_cli.py and stays excluded as inherited code.
+# local-runtime-mvp T02: ruff applies to new or modified files only; inherited
+# foundation code is excluded until a dedicated, reviewed normalization task
+# (multi-provider-orchestrator T21). cli.py only gained a small dispatch hook to
+# local_cli.py and stays excluded as inherited code.
 [tool.ruff]
 line-length = 100
 target-version = "py311"
@@ -31,6 +37,10 @@ extend-exclude = [
     "tests/test_platform_support.py",
     "tests/test_store.py",
 ]
+
+[tool.ruff.format]
+# Markdown code blocks in docs and specs are illustrative, not source code.
+exclude = ["*.md"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "ANN"]

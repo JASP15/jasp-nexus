@@ -1,6 +1,6 @@
 # Windows y WSL2: estado del trabajo local
 
-> **Sin vigencia desde el 6 de noviembre de 2026.** Esta guía describe la línea CAO, retirada por la [decisión del 6 de noviembre](decision-2026-11-06.md); la spec activa es `multi-provider-orchestrator` y la guía de entorno vigente será `docs/setup-wsl.md` (F0/T02). No ejecutar los scripts que menciona. Se archiva en F5.
+> **Sin vigencia desde el 6 de noviembre de 2026.** Esta guía describe la línea CAO, retirada por la [decisión del 6 de noviembre](decision-2026-11-06.md); la spec activa es `multi-provider-orchestrator` y la guía de entorno vigente es [setup-wsl.md](setup-wsl.md). No ejecutar los scripts que menciona. Se archiva en F5.
 
 **Actualizado el 23 de octubre de 2026.** En esa fecha la spec activa era [local-runtime-mvp](../.kiro/specs/local-runtime-mvp/tasks.md). Foundation y scripts locales están guardados en `main`, base consolidada `e120277`; T01 obtuvo [APROBADO externo en ronda 2](revisiones/local-runtime-mvp-t01.md). La copia de la guía anterior a la conciliación está en `.build/reconcile-2026-10-23/originals/docs/setup-windows.md`.
 

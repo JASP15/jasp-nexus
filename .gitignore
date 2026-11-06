@@ -18,6 +18,8 @@ node_modules/
 # Conciliacion local y futuros artefactos de consola
 .build/
 .ruff_cache/
+# uv run genera un lockfile local; Nexus no tiene dependencias de ejecución (T02 multi-provider-orchestrator)
+uv.lock
 .mypy_cache/
 coverage/
 htmlcov/
