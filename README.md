@@ -1,40 +1,43 @@
 # JASP Nexus
 
-Herramienta personal y modular para coordinar desarrollo y generación visual con servicios locales y agentes. El primer objetivo es un flujo local que no dependa de Claude ni de CAO.
+Orquestador personal multi-proveedor: reparte el trabajo de un objetivo común entre Claude Code, Codex y Kiro CLI, lanzados en modo headless desde una sola herramienta, con revisión cruzada entre empresas y aprobación humana. LM Studio es opcional. Se ejecuta en local (WSL2 como host principal, macOS secundario); la consola web escucha solo en `127.0.0.1`.
 
-**Estado actual: foundation y trabajo local consolidados en `main`, base `e120277`; T01 aprobada por Claude en ronda 2.** La CLI administra tareas y simula asignaciones; todavía no ejecuta agentes, chat local ni workflows ComfyUI. La consola web está pospuesta.
+**Estado actual (6 de noviembre de 2026): fase F0.** La CLI administra tareas, simula asignaciones y habla con LM Studio contra un servidor de prueba; todavía **no ejecuta agentes** ni tiene consola. Los adaptadores headless, el pipeline y la consola son trabajo planificado.
 
-## Dirección acordada
+## Dirección vigente
 
-El 23 de octubre de 2026 se aprobó seguir la [propuesta de revisión local](docs/revision-local-2026-10-23.md): **conexión local real → agente acotado → ComfyUI → orquestación y consola**.
+El 6 de noviembre de 2026 el usuario aprobó convertir Nexus en orquestador multi-proveedor ([decisión y procedencia](docs/decision-2026-11-06.md)): suscripciones primero, adaptadores directos por `subprocess` sin CAO ni tmux, consola Nuxt 4 después del flujo por CLI.
 
-La spec activa es [local-runtime-mvp](.kiro/specs/local-runtime-mvp/tasks.md). Se trabaja una tarea a la vez; T01 concilió las fuentes de verdad y recuperó el código existente, ya consolidado. Su cierre cuenta con [revisión de Claude](docs/revisiones/local-runtime-mvp-t01.md), proveedor distinto del implementador Codex. T02 permanece pendiente.
+- Spec activa: [multi-provider-orchestrator](.kiro/specs/multi-provider-orchestrator/tasks.md) (21 tareas en seis fases, F0–F5). Resumen en el [roadmap](docs/ROADMAP.md).
+- [local-runtime-mvp](.kiro/specs/local-runtime-mvp/tasks.md): **cerrada**. T01 aprobada por Claude en ronda 2; T02 cerrada con revisión interna por excepción del usuario, sin aceptación real contra LM Studio.
+- [nexus-console](.kiro/specs/nexus-console/tasks.md): **reemplazada** por la fase F4; se conserva como referencia hasta F5.
 
 ## Qué hay disponible
 
 | Componente | Estado |
 |---|---|
-| CLI `doctor/create/list/show/route/history/advance` | Recuperada de foundation |
-| SQLite `.nexus/state.sqlite3`, transiciones e historial | Recuperada, compatible con `--db` |
-| Catálogo `config/agents.example.json` | Routing simulado; no comprueba login, cuota o salud |
-| Pruebas unitarias y CI Linux/macOS | 15 tests de foundation; CI recuperado, sin nueva ejecución remota |
-| Perfiles CAO, scripts y `config/routing.yaml` | Trabajo local conservado; integración pendiente |
-| Conexión LM Studio y modelos/chat reales | T02 cerrada con revisión interna; aceptación real y ruff pendientes |
-| Agente local acotado y ComfyUI | Hitos posteriores |
-| Contrato CAO y consola | Pendientes y pospuestos |
+| CLI `doctor/create/list/show/route/history/advance` | Funciona (base foundation) |
+| SQLite `.nexus/state.sqlite3`, transiciones e historial | Funciona, compatible con `--db` |
+| `route` con `config/agents.example.json` | Simulado: no comprueba binario, login ni cuota |
+| `providers/models/chat/runs` (LM Studio/ComfyUI) | Probado contra servidor falso; aceptación real pendiente (F5/T19, opcional) |
+| Pruebas unitarias y CI Linux/macOS | 54 pruebas unittest verificadas en WSL; CI solo unittest |
+| Adaptadores Claude/Codex/Kiro, `nexus run`, `doctor` real | Pendiente (F1–F2) |
+| Router por etapas, pipeline, aprobación humana | Pendiente (F3) |
+| Consola web Nuxt | Pendiente (F4) |
+| Perfiles CAO, `scripts/*.sh`, `config/routing.yaml` | Legado no validado; no ejecutar; se retira en F5 |
 
-`route` produce un plan lógico y no consume créditos. `advance --actor` registra un actor declarado, sin autenticarlo. No confundir ese registro con revisión de seguridad.
+`route` produce un plan lógico y no consume créditos. `advance --actor` registra un actor declarado, sin autenticarlo. `doctor` hoy solo busca binarios y consulta `cao-server`; no acredita autenticación ni cuota.
 
 ## Probar la base sin instalar proveedores
 
-Desde la raíz del checkout en WSL/POSIX, con Python 3.11+:
+Desde la raíz del checkout en WSL, con Python 3.11+ (3.12 recomendado):
 
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 PYTHONPATH=src python3 -m jasp_nexus.cli --help
 ```
 
-Para un ensayo manual con datos descartables:
+Ensayo manual con datos descartables:
 
 ```bash
 PYTHONPATH=src python3 -m jasp_nexus.cli --db .build/demo/state.sqlite3 create --title "Prueba local" --kind general
@@ -43,22 +46,17 @@ PYTHONPATH=src python3 -m jasp_nexus.cli --db .build/demo/state.sqlite3 list
 PYTHONPATH=src python3 -m jasp_nexus.cli --db .build/demo/state.sqlite3 route ID_DE_TAREA
 ```
 
-La instalación editable del paquete es opcional para disponer del comando `nexus`; no se realizó como parte de la conciliación. `doctor` solo comprueba binarios y salud de CAO; no acredita autenticación ni cuota.
-
-## Procedencia y archivos locales
-
-La base procede de `8683b6568ff026cb957866225115743b8b01d4f8`, rama `feat/foundation-cao-mvp`. Primero se recuperaron sus archivos y después, por petición expresa del usuario, se fusionaron sus 13 commits con el trabajo local en `e120277e7930b77766f81201fa08cac6b79be1fd`. **La única rama local de trabajo es `main`**. El commit de cierre de T01 registra las correcciones documentales revisadas y el APROBADO externo de ronda 2; los commits de conservación y fusión no equivalen a esa aprobación. Los cambios siguen locales, sin publicar en GitHub.
-
-Consulta [procedencia, compatibilidad y verificación](docs/conciliacion-local-2026-10-23.md). Los originales seguros y manifiesto están en `.build/reconcile-2026-10-23/`, ignorado por Git.
-
-La [consolidación de ramas](docs/consolidacion-git-2026-10-23.md) explica el respaldo y la diferencia entre ramas locales y referencias remotas. Continuar en `main`; no cambiar a foundation para recuperar archivos, porque ya está incorporada.
+La instalación editable (`pip install -e .`) es opcional y da el comando `nexus`. La guía de entorno WSL con `uv`, ruff, Node y las tres CLIs llegará con F0/T02 (`docs/setup-wsl.md`).
 
 ## Guías
 
-- [Reglas de agentes](AGENTS.md), [steering](.kiro/steering/) y [plan activo](.kiro/specs/local-runtime-mvp/tasks.md).
-- [Roadmap vigente](docs/ROADMAP.md).
-- [Diseño de consola pospuesto](.kiro/specs/nexus-console/design.md).
-- [Guía local de Windows y estado de scripts CAO](docs/setup-windows.md).
-- Documentación heredada: [arquitectura](docs/ARCHITECTURE.md), [seguridad](docs/SECURITY.md), [WSL2](docs/WINDOWS_WSL2.md), [macOS](docs/MACOS.md) y [multi-host](docs/MULTI_HOST.md). Se conserva como referencia; no activa esas instalaciones ni sustituye la spec vigente.
+- [Reglas de agentes](AGENTS.md), [steering](.kiro/steering/) y [spec activa](.kiro/specs/multi-provider-orchestrator/requirements.md).
+- [Roadmap](docs/ROADMAP.md) y [decisión del 6 de noviembre](docs/decision-2026-11-06.md).
+- [Dictámenes de revisión](docs/revisiones/).
 
-Nexus mantiene CAO como software externo, sin fork. Nunca exponer sus terminales a la red ni ejecutar paradas globales. Cada host conserva sus datos y credenciales; Git no sincroniza sesiones ni SQLite.
+### Histórico
+
+- [Revisión local del 23 de octubre](docs/revision-local-2026-10-23.md), [conciliación](docs/conciliacion-local-2026-10-23.md) y [consolidación de Git](docs/consolidacion-git-2026-10-23.md): procedencia de la base actual. Foundation `8683b6568ff026cb957866225115743b8b01d4f8` está incorporada en `main` mediante el merge `e120277`; `main` es la única rama local de trabajo y no se publica sin petición del usuario.
+- Guías heredadas de la línea CAO, sin vigencia: [Windows](docs/setup-windows.md), [arquitectura](docs/ARCHITECTURE.md), [seguridad](docs/SECURITY.md), [WSL2](docs/WINDOWS_WSL2.md), [macOS](docs/MACOS.md) y [multi-host](docs/MULTI_HOST.md). Pasan a `docs/archivo/` en F5.
+
+Nunca ejecutar los scripts CAO heredados ni paradas globales de agentes. Cada host conserva sus datos y credenciales; Git no sincroniza sesiones ni SQLite.

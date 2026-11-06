@@ -1,5 +1,7 @@
 # Requisitos: JASP Nexus Console
 
+> **REEMPLAZADA el 6 de noviembre de 2026 por la fase F4 de [multi-provider-orchestrator](../multi-provider-orchestrator/requirements.md)** ([decisión](../../../docs/decision-2026-11-06.md)). No se ejecutan sus tareas: CAO, tmux, perfiles, `routing.yaml`, FastAPI y React quedan fuera del plan. Se conserva como referencia hasta F5/T20, que la archiva en `docs/archivo/`, porque sus requisitos de seguridad local (R2.1–R2.3 y R2.5: bind en `127.0.0.1`, `Host`/`Origin`, sin secretos en logs) y la prohibición de exponer PTY (R2.4) se reutilizan en F4. El texto siguiente es histórico.
+
 **POSPUESTA desde el 23 de octubre de 2026.** La spec activa es `../local-runtime-mvp/`. Estos requisitos describen una etapa futura, no funciones implementadas. Al reactivarla debe conservarse la CLI, datos y pruebas existentes.
 
 Formato: CUANDO <condición>, EL SISTEMA DEBE <comportamiento>. Cada requisito tiene un id (R*.*) que las tareas citan.

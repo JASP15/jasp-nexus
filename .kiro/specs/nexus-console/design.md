@@ -1,5 +1,7 @@
 # Diseño: JASP Nexus Console
 
+> **REEMPLAZADA el 6 de noviembre de 2026 por la fase F4 de [multi-provider-orchestrator](../multi-provider-orchestrator/requirements.md)** ([decisión](../../../docs/decision-2026-11-06.md)). No se ejecutan sus tareas: CAO, tmux, perfiles, `routing.yaml`, FastAPI y React quedan fuera del plan. Se conserva como referencia hasta F5/T20, que la archiva en `docs/archivo/`, porque sus requisitos de seguridad local (R2.1–R2.3 y R2.5: bind en `127.0.0.1`, `Host`/`Origin`, sin secretos en logs) y la prohibición de exponer PTY (R2.4) se reutilizan en F4. El texto siguiente es histórico.
+
 **POSPUESTO desde el 23 de octubre de 2026.** Primero se ejecuta `../local-runtime-mvp/`. La consola es una extensión de la base existente: argparse/setuptools y `TaskStore`, no un paquete nuevo. Sus dependencias, endpoints y componentes siguen sin implementar.
 
 ## Decisión: aplicación web local, no app de escritorio

@@ -1,6 +1,6 @@
 # Seguridad para el piloto
 
-> Referencia histórica recuperada de foundation (8683b65). La spec activa es `local-runtime-mvp`; estas guías no activan instalaciones, cambios de rama ni fases pospuestas. Para el estado vigente consulta [conciliación local](conciliacion-local-2026-10-23.md) y [roadmap](ROADMAP.md).
+> Referencia histórica recuperada de foundation (8683b65), sin vigencia: describe la línea CAO, retirada por la [decisión del 6 de noviembre de 2026](decision-2026-11-06.md). La spec activa es `multi-provider-orchestrator`; estas guías no activan instalaciones ni cambios de rama y pasan a `docs/archivo/` en F5. Para el estado vigente consulta el [roadmap](ROADMAP.md).
 
 1. Nexus v0.1 NO ejecuta agentes, comandos remotos, merges, migraciones ni despliegues.
 2. CAO puede arrancar Claude con --dangerously-skip-permissions y Codex con --yolo por defecto. Nunca usar esos modos sobre repositorios reales. Configurar y verificar permissionMode de Claude y codexProfile con sandbox/aprobaciones, sin allowedTools irrestrictos.

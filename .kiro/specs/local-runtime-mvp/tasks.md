@@ -1,5 +1,7 @@
 # Tareas: JASP Nexus Local Runtime MVP
 
+> **CERRADA el 6 de noviembre de 2026.** El usuario aprobó la dirección de orquestador multi-proveedor ([decisión](../../../docs/decision-2026-11-06.md)); la spec activa es [multi-provider-orchestrator](../multi-provider-orchestrator/requirements.md). T01 se cerró con APROBADO de Claude en ronda 2; T02 se cerró con revisión interna por excepción aceptada por el usuario. La aceptación real de T02 contra LM Studio (providers → models → chat) no se superó y se traslada a F5/T19 de la spec activa, como opcional; la verificación con ruff pasa a la verificación base desde F0/T02. Los hitos H3, H4 y H5 quedan sustituidos: H3 por F1–F3 (adaptadores, pipeline y protección del repo objetivo), H5 por F3–F4 sin CAO; H4 (ComfyUI) queda fuera del alcance de la spec activa, no cancelado. El texto siguiente se conserva sin cambios como registro histórico; donde dice «activa», «vigente» o «pendiente» se refiere al 23 de octubre de 2026.
+
 **Plan activo desde el 23 de octubre de 2026**, por autorización del usuario a la propuesta del informe local. Ejecutar una tarea a la vez, en orden. Una casilla se marca solo después de verificación y aprobación de un revisor de otro proveedor. No confundir aprobación de la dirección con revisión de la implementación.
 
 ## Trabajo detallado
