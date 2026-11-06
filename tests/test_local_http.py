@@ -1,4 +1,5 @@
 import os
+import time
 import unittest
 from unittest import mock
 
@@ -63,9 +64,31 @@ class LocalHttpTests(unittest.TestCase):
         )
         self.assert_category(local_http.RESPONSE_TOO_LARGE, "/stream")
 
+    def test_truncated_body_is_not_success(self) -> None:
+        self.fake.routes[("GET", "/cut")] = Route(
+            body=b"{}", headers={"Content-Length": "100"}, omit_length=True
+        )
+        error = self.assert_category(local_http.CONNECTION_ERROR, "/cut")
+        self.assertIn("2 de 100", str(error))
+
     def test_timeout(self) -> None:
         self.fake.routes[("GET", "/slow")] = Route(delay=1.5)
         self.assert_category(local_http.TIMEOUT, "/slow", timeout=0.3)
+
+    def test_trickled_body_respects_total_deadline(self) -> None:
+        body = b'{"k": "' + b"x" * 100 + b'"}'
+        self.fake.routes[("GET", "/drip")] = Route(body=body, drip_interval=0.1)
+        started = time.monotonic()
+        self.assert_category(local_http.TIMEOUT, "/drip", timeout=0.5, max_bytes=65536)
+        self.assertLess(time.monotonic() - started, 1.5)
+
+    def test_trickled_headers_respect_total_deadline(self) -> None:
+        self.fake.routes[("GET", "/dripH")] = Route(
+            body=b"{}", drip_interval=0.1, drip_headers=True
+        )
+        started = time.monotonic()
+        self.assert_category(local_http.TIMEOUT, "/dripH", timeout=0.5)
+        self.assertLess(time.monotonic() - started, 1.5)
 
     def test_connection_refused(self) -> None:
         with self.assertRaises(TransportError) as ctx:

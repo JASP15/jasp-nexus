@@ -4,7 +4,7 @@
 
 ## Trabajo detallado
 
-**Estado vigente:** la consolidación Git autorizada incorporó foundation y el trabajo local en `main`, merge `e120277e7930b77766f81201fa08cac6b79be1fd`. Los criterios siguientes evalúan ese estado y las correcciones documentales; la recuperación sin merge y HEAD inalterado es histórica. T01 obtuvo APROBADO de Claude en ronda 2, con comprobaciones de cierre satisfactorias; véase `docs/revisiones/local-runtime-mvp-t01.md`. T02 permanece pendiente.
+**Estado vigente:** la consolidación Git autorizada incorporó foundation y el trabajo local en `main`, merge `e120277e7930b77766f81201fa08cac6b79be1fd`. Los criterios siguientes evalúan ese estado y las correcciones documentales; la recuperación sin merge y HEAD inalterado es histórica. T01 obtuvo APROBADO de Claude en ronda 2, con comprobaciones de cierre satisfactorias; véase `docs/revisiones/local-runtime-mvp-t01.md`. T02 se cerró con revisión interna del orquestador (excepción aceptada por el usuario, no cruzada por proveedor); su aceptación real contra LM Studio sigue pendiente. Véase `docs/revisiones/local-runtime-mvp-t02-claude-ronda-2.md`.
 
 - [x] **T01. Conciliación de foundation y compatibilidad** (R1.*, R4.1, R4.3)
   - Conservar `main` y comprobar que foundation `8683b6568ff026cb957866225115743b8b01d4f8` es ancestro del merge `e120277`; mantener el trabajo local incorporado. No repetir la recuperación ni cambiar de rama.
@@ -19,7 +19,7 @@
   - Aceptación: documentación coherente, 11 archivos idénticos, 15 pruebas y smoke aprobados; dictamen externo APROBADO con alcance registrado. Mantener esta casilla vacía hasta ese dictamen.
   - Cierre tras aprobación: commit `T01: Foundation reconciliation and compatibility` con las correcciones documentales revisadas, esta casilla `[x]` y registro del dictamen/alcance; identificar `local-runtime-mvp` en el cuerpo. Verificar árbol limpio después del commit. `e120277` es el merge de conservación, no este cierre; no hacer push.
 
-- [ ] **T02. Conexión local real y evidencia medida** (R2.*, R3.*, R4.2–R4.4)
+- [x] **T02. Conexión local real y evidencia medida** (R2.*, R3.*, R4.2–R4.4)
   - Añadir configuración JSON validada para LM Studio y ComfyUI, timeouts y límites finitos; comandos `providers/models/chat` con argparse y librería estándar.
   - Consultar documentación oficial vigente de los endpoints de lectura; validar IDs reales de LM Studio y hacer chat no streaming sin herramientas ni agentes.
   - Tratar loopback/host WSL explícito, errores, redirecciones, proxies, respuestas inesperadas y límites según diseño.

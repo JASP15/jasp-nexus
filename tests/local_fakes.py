@@ -17,6 +17,8 @@ class Route:
     headers: dict[str, str] = field(default_factory=dict)
     delay: float = 0.0
     omit_length: bool = False
+    drip_interval: float = 0.0  # seconds between single bytes of the body
+    drip_headers: bool = False  # also trickle the status line and headers
 
 
 def json_route(data: object, status: int = 200) -> Route:
@@ -70,6 +72,9 @@ class FakeServer:
         if route.delay:
             time.sleep(route.delay)
         try:
+            if route.drip_headers:
+                self._drip_head(handler, route)
+                return
             handler.send_response(route.status)
             for key, value in route.headers.items():
                 handler.send_header(key, value)
@@ -77,9 +82,23 @@ class FakeServer:
                 handler.send_header("Content-Length", str(len(route.body)))
             handler.send_header("Connection", "close")
             handler.end_headers()
-            handler.wfile.write(route.body)
+            if route.drip_interval:
+                self._drip(handler, route.body, route.drip_interval)
+            else:
+                handler.wfile.write(route.body)
         except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
             return
+
+    @staticmethod
+    def _drip(handler: BaseHTTPRequestHandler, data: bytes, interval: float) -> None:
+        for index in range(len(data)):
+            handler.wfile.write(data[index : index + 1])
+            handler.wfile.flush()
+            time.sleep(interval)
+
+    def _drip_head(self, handler: BaseHTTPRequestHandler, route: Route) -> None:
+        head = f"HTTP/1.1 {route.status} OK\r\nContent-Length: {len(route.body)}\r\n\r\n"
+        self._drip(handler, head.encode("ascii") + route.body, route.drip_interval or 0.05)
 
 
 def closed_port_url() -> str:

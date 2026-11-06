@@ -19,7 +19,7 @@ La spec activa es [local-runtime-mvp](.kiro/specs/local-runtime-mvp/tasks.md). S
 | Catálogo `config/agents.example.json` | Routing simulado; no comprueba login, cuota o salud |
 | Pruebas unitarias y CI Linux/macOS | 15 tests de foundation; CI recuperado, sin nueva ejecución remota |
 | Perfiles CAO, scripts y `config/routing.yaml` | Trabajo local conservado; integración pendiente |
-| Conexión LM Studio y modelos/chat reales | T02 pendiente |
+| Conexión LM Studio y modelos/chat reales | T02 cerrada con revisión interna; aceptación real y ruff pendientes |
 | Agente local acotado y ComfyUI | Hitos posteriores |
 | Contrato CAO y consola | Pendientes y pospuestos |
 

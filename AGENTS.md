@@ -20,7 +20,7 @@ El 23 de octubre de 2026 el usuario autorizó la propuesta de `docs/revision-loc
 
 ### Excepción solicitada por el usuario: consolidación de Git
 
-El usuario autorizó respaldar archivos y referencias, crear commits de conservación, fusionar foundation, continuar en `main` y eliminar la rama local redundante tras verificar su incorporación. La consolidación ya se completó y reemplaza las restricciones históricas de recuperación sin merge ni cambios de HEAD. Esa operación no aprueba T01: su aprobación procede del dictamen de Claude en ronda 2, tras corregir la documentación señalada en ronda 1. T02 permanece pendiente. No hacer push ni eliminar ramas remotas. Véase `docs/consolidacion-git-2026-10-23.md` y `docs/estado-revision-t01.md`.
+El usuario autorizó respaldar archivos y referencias, crear commits de conservación, fusionar foundation, continuar en `main` y eliminar la rama local redundante tras verificar su incorporación. La consolidación ya se completó y reemplaza las restricciones históricas de recuperación sin merge ni cambios de HEAD. Esa operación no aprueba T01: su aprobación procede del dictamen de Claude en ronda 2, tras corregir la documentación señalada en ronda 1. T02 se cerró después, con revisión interna del orquestador por excepción aceptada por el usuario (no cruzada por proveedor); aceptación real con LM Studio y ruff siguen pendientes. No hacer push ni eliminar ramas remotas. Véase `docs/consolidacion-git-2026-10-23.md` y `docs/estado-revision-t01.md`.
 
 ## Estilo
 - Interfaz, mensajes de error al usuario y documentación en **español**. Código, nombres y commits técnicos en inglés salvo el prefijo `T<nn>:`.
